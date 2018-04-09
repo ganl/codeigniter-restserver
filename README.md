@@ -18,9 +18,19 @@ Please note that version 4.0.0 is in the works, and is considered a breaking cha
 
 Take a look at the "development" branch to see what's up.
 
-## Installation
+## Installation & loading
 
-Drag and drop the **application/libraries/Format.php** and **application/libraries/REST_Controller.php** files into your application's directories. To use `require_once` it at the top of your controllers to load it into the scope. Additionally, copy the **rest.php** file from **application/config** in your application's configuration directory.
+CodeIgniter Rest Server is available on [Packagist](https://packagist.org/packages/chriskacerguis/codeigniter-restserver) (using semantic versioning), and installation via composer is the recommended way to install Codeigniter Rest Server. Just add this line to your `composer.json` file:
+
+```json
+"chriskacerguis/codeigniter-restserver": "^3.0"
+```
+
+or run
+
+```sh
+composer require chriskacerguis/codeigniter-restserver
+```
 
 ## Handling Requests
 
@@ -118,6 +128,16 @@ If you don't specify a response code, and the data you respond with `== FALSE` (
 $this->response([]); // HTTP 404 Not Found
 ```
 
+## Configuration
+
+You can overwrite all default configurations by creating a rest.php file in your config folder with your configs. 
+All given configurations will overwrite the default ones.
+
+## Language
+
+You can overwrite all default language files. Just add a rest_controller_lang.php to your language and overwrite the what you want.
+
+
 ## Multilingual Support
 
 If your application uses language files to support multiple locales, `REST_Controller` will automatically parse the HTTP `Accept-Language` header and provide the language(s) in your actions. This information can be found in the `$this->response->lang` object:
@@ -190,6 +210,19 @@ By default, the HTTP will be `X-API-KEY`. This can be configured in **config/res
 ```bash
 $ curl -X POST -H "X-API-KEY: some_key_here" http://example.com/books
 ```
+## Profiling
+Codeigniter Profiler feature has been added to the library, so that you can use the power of CI profiler in your project just by setting config parameter to enable profile through out your application
+Turn it on in your **config/config.php** file:
+
+```php
+TRUE to turn profile ON, FALSE to turn it off
+$config['enable_profiling'] = FALSE;
+```
+Also you need to enable `hooks` in your config.php that looks like this
+```php
+$config['enable_hooks'] = TRUE;
+```
+Also you can refer to **config/config.php.sample** 
 
 ## Other Documentation / Tutorials
 
@@ -202,5 +235,3 @@ as he is no longer using it.  As of 2013/11/20 further development and support w
 
 Pull Requests are the best way to fix bugs or add features. I know loads of you use this, so please
 contribute if you have improvements to be made and I'll keep releasing versions over time.
-
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/chriskacerguis/codeigniter-restserver/master/LICENSE)
